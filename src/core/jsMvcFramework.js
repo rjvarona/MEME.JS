@@ -7,24 +7,32 @@ debugger;
 export default class JsMvcFramework {
 	constructor(routes) {
 		routeList = routes;
-		return this;
+		window['JsMvcFramework'] = this;
+		return window['JsMvcFramework'];
 	}
 	//needs to change to take multiple ids later on maybe custom dictionary
 	matchRoute(route1, route2) {
 		return route1 === route2 ? true : false;
 	}
 
-	navigate(url) {
+	navigate(event, url) {
+		if (event != null) event.preventDefault;
 		routeList.forEach(route => {
 			if (this.matchRoute(route.path, url)) {
 				//load DOM
 				//return view for html add specific html for specific path
+				window.history.pushState({}, '', route.path);
 				document.getElementById('meme').innerHTML = route.controller().view();
 			}
 		});
 	}
 
 	init() {
-		this.navigate(window.location.pathname);
+		window.onpopstate = function (event) {
+			window['JsMvcFramework'].navigate(event, window.location.pathname);
+		};
+		window.onload = () => {
+			this.navigate(null, window.location.pathname);
+		};
 	}
 }
