@@ -2,6 +2,8 @@ import route from 'color-convert/route';
 
 let routeList = [];
 
+debugger;
+
 export default class JsMvcFramework {
 	constructor(routes) {
 		routeList = routes;
@@ -9,7 +11,7 @@ export default class JsMvcFramework {
 	}
 	//needs to change to take multiple ids later on maybe custom dictionary
 	matchRoute(route1, route2) {
-		return route1 === route ? true : false;
+		return route1 === route2 ? true : false;
 	}
 
 	navigate(url) {
@@ -20,5 +22,9 @@ export default class JsMvcFramework {
 				document.getElementById('meme').innerHTML = route.controller().view();
 			}
 		});
+	}
+
+	init() {
+		this.navigate(window.location.pathname);
 	}
 }

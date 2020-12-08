@@ -1,6 +1,6 @@
 import Home from './controllers/Home';
 import Contact from './controllers/Contact';
-const router = [
+const routes = [
 	{
 		path: '/',
 		controller: Home,
