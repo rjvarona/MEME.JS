@@ -23,6 +23,7 @@ export default class JsMvcFramework {
 				//return view for html add specific html for specific path
 				window.history.pushState({}, '', route.path);
 				document.getElementById('meme').innerHTML = route.controller().view();
+				return;
 			}
 		});
 	}

@@ -8,5 +8,21 @@
 	<body>
 		<!-- this is where we will load our templates -->
 		<div id="meme"></div>
+		<meme-app></meme-app>
 	</body>
 </html>
+
+<script>
+	class Meme extends HTMLElement {
+		constructor() {
+			super();
+		}
+	}
+
+	customElements.define('meme-app', Meme);
+
+	var meme = new Meme();
+	meme.innerHTML = 'test erere';
+	meme.style.color = 'blue';
+	document.body.appendChild(meme);
+</script>
