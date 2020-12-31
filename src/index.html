@@ -8,7 +8,8 @@
 	<body>
 		<!-- this is where we will load our templates -->
 		<div id="meme"></div>
-		<meme-app></meme-app>
+
+		<x-foo>yeet</x-foo>
 	</body>
 </html>
 
@@ -25,4 +26,21 @@
 	meme.innerHTML = 'test erere';
 	meme.style.color = 'blue';
 	document.body.appendChild(meme);
+
+	var XFoo = customElements.define('x-foo', {
+		prototype: Object.create(HTMLElement.prototype, {
+			bar: {
+				get: function () {
+					return 5;
+				},
+			},
+			foo: {
+				value: function () {
+					alert('foo() called');
+				},
+			},
+		}),
+	});
+
+	document.body.appendChild(xfoo);
 </script>
