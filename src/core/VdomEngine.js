@@ -1,14 +1,29 @@
 // Create virtual node
 function h(tag, props, children) {
-	// Return the virtual node
+	return {
+		tag,
+		props,
+		children,
+	};
 }
 
 // Mount a virtual node to the DOM
 function mount(vnode, container) {
-	// Create the element
-	// Set props
-	// Handle children
-	// Mount to the DOM
+	const el = (vnode.el = document.createElement(vnode.tag));
+
+	for (const key in vnode.props) {
+		el.setAttribute(key, vnode.props[key]);
+	}
+
+	if (typeof vnode.children === 'string') {
+		el.textContent = vnode.children;
+	} else {
+		vnode.children.foreach(child => {
+			mount(child, el);
+		});
+	}
+
+	container.appendChild(el);
 }
 
 // Unmount a virtual node from the DOM
