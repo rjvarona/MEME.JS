@@ -26,17 +26,40 @@ function mount(vnode, container) {
 	container.appendChild(el);
 }
 
-// Unmount a virtual node from the DOM
 function unmount(vnode) {
-	// Unmount the virtual node
+	vnode.el.parentNode.removeChild(vnode.el);
 }
 
 // Take 2 vnodes, compare & figure out what's the difference
 function patch(n1, n2) {
-	// Case where the nodes are of the same tag
-	// Case where the new vnode has string children
-	// Case where the new vnode has an array of vnodes
-	// Case where the nodes are of different tags
+	const el = (n2.el = n1.el);
+
+	if (n1.tag !== n2.tag) {
+		mount(n2, el.parentNode);
+		unmount(n1);
+	} else {
+		if (typeof n2.children === 'string') {
+			el.textContent = n2.children;
+		}
+	}
+
+	const c1 = n1.children;
+	const c2 = n2.children;
+	const commonLength = Math.min(c1.length, c2.length);
+
+	for (let i = 0; i < commonLength; i++) {
+		patch(c1[i], c2[i]);
+	}
+
+	if (c1.length > c2.length) {
+		c1.slice(c2.length).forEach(child => {
+			unmount(child);
+		});
+	} else if (c2.length > c1.length) {
+		c2.slice(c1.length).forEach(child => {
+			mount(child, el);
+		});
+	}
 }
 
 function render(message) {
