@@ -26,4 +26,5 @@ Point.prototype = new Vector();
 //-------------constructor is a property that allows you to specify the function's constructor
 Point.prototype.constructor = Point;
 
-//---------------------------------------Classical Inheritance
+//---------------------------------------Classical Inheritancedsfdsfsf
+//dfsdf
